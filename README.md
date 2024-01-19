@@ -10,7 +10,7 @@ Learning By Doing.
 #### composer update
     composer update
 
-#### compser install
+#### composer install
     composer instal
 
 #### npm install
