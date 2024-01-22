@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id');
+            $table->string('month');
+            $table->date('date_of_receive');
+            $table->double('bonus');
+            $table->double('deduction')->default(0);
+            $table->double('paid');
             $table->timestamps();
         });
     }

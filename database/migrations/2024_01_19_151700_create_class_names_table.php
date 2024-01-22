@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('class_names', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->double('fees');
+            $table->foreignId('teacher_id');
             $table->timestamps();
         });
     }

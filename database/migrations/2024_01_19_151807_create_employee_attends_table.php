@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('employee_attends', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employee_id');
+            $table->boolean('status_p_a');
+            $table->date('date');
             $table->timestamps();
         });
     }

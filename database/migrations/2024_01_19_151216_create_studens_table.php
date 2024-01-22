@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\ClassName;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +15,18 @@ return new class extends Migration
     {
         Schema::create('studens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->string('name');
+            $table->integer('registration')->unique();
+            $table->foreignId('class_id');
+            $table->string('picture', 2048)->nullable();
+            $table->date('admission_date');
+            $table->string('phone');
+            $table->tinyText('address');
+            $table->date('date_of_birth');
+            $table->enum('gender', ['male', 'female', 'other']);
+            $table->string('previous_school')->nullable();
+
             $table->timestamps();
         });
     }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('parents', function (Blueprint $table) {
             $table->id();
+            $table->string('father_name')->nullable();
+            $table->string('mother_name')->nullable();
+            $table->foreignId('student_id')->nullable();
+            $table->string('father_info')->nullable();
+            $table->string('mother_info')->nullable();
             $table->timestamps();
         });
     }
