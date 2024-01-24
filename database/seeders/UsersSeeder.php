@@ -19,25 +19,25 @@ class UsersSeeder extends Seeder
                 'name' => 'admin',
                 'email' => 'admin@gmail.com',
                 'password' => bcrypt('password'),
-                'email_verfied_at' => Carbon::now()
+                'email_verified_at' => Carbon::now()
             ],
             [
                 'name' => 'principle',
                 'email' => 'principle@gmail.com',
                 'password' => bcrypt('password'),
-                'email_verfied_at' => Carbon::now()
+                'email_verified_at' => Carbon::now()
             ],
             [
                 'name' => 'teacher',
                 'email' => 'teacher@gmail.com',
                 'password' => bcrypt('password'),
-                'email_verfied_at' => Carbon::now()
+                'email_verified_at' => Carbon::now()
             ],
             [
                 'name' => 'student',
                 'email' => 'student@gmail.com',
                 'password' => bcrypt('password'),
-                'email_verfied_at' => Carbon::now()
+                'email_verified_at' => Carbon::now()
             ],
             ]);
     }

@@ -1,0 +1,8 @@
+salary - employee = one to one 
+parent - student = one to many
+teacher - class = one to many
+class - subject = many to many
+subject - fees = one to one
+homework - subject - class = many to many
+
+build subject table

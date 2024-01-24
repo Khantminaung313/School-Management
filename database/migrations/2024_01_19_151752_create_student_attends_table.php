@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id');
             $table->boolean('status_p_a');
-            $table->foreignId('class-id');
+            $table->foreignId('class_id');
             $table->timestamps();
         });
     }
