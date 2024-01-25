@@ -1,0 +1,1 @@
+<span class="font-bold text-xl" style="color: rgb(48, 255, 110); letter-spacing: 1px">KZ School</span>

@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -15,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->double('fees');
-            $table->foreignId('teacher_id');
+            $table->foreignId('employee_id');
             $table->timestamps();
         });
     }
