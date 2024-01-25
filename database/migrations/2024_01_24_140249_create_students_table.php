@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->constrained();
+            $table->foreignId('role_id');
+            $table->foreignId('family_id')->nullable();
             $table->string('name');
             $table->integer('registration')->unique();
             $table->foreignId('class_id');
@@ -24,7 +25,6 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->enum('gender', ['male', 'female', 'other']);
             $table->string('previous_school')->nullable();
-
             $table->timestamps();
         });
     }
