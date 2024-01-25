@@ -8,9 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
-
-    public function employee()
-    {
-        return $this->belongsToMany()
-    }
 }
