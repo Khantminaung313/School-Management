@@ -62,6 +62,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'users_roles');
@@ -74,4 +79,6 @@ class User extends Authenticatable
             set: fn (string $value) => strtolower($value),
         );
     }
+
+    
 }

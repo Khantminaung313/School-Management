@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -12,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('class_names', function (Blueprint $table) {
+        Schema::create('families', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->double('fees');
-            $table->foreignId('employee_id');
+            $table->string('father_name')->nullable();
+            $table->string('mother_name')->nullable();
+            $table->foreignId('student_id')->nullable();
+            $table->string('father_info')->nullable();
+            $table->string('mother_info')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('class_names');
+        Schema::dropIfExists('families');
     }
 };

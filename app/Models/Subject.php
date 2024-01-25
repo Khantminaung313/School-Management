@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class Subject extends Model
 {
     use HasFactory;
 
-    public function family()
+    public function homeworks()
     {
-        return $this->belongsTo(Family::class);
+        return $this->belongsTo(Homework::class, 'class_homework_subject');
     }
+
 }

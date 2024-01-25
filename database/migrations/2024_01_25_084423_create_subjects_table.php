@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -12,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('class_names', function (Blueprint $table) {
+        Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->double('fees');
-            $table->foreignId('employee_id');
+            $table->double("fee");
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('class_names');
+        Schema::dropIfExists('subjects');
     }
 };
