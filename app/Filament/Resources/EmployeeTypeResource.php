@@ -6,9 +6,13 @@ use App\Filament\Resources\EmployeeTypeResource\Pages;
 use App\Filament\Resources\EmployeeTypeResource\RelationManagers;
 use App\Models\EmployeeType;
 use Filament\Forms;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -25,7 +29,9 @@ class EmployeeTypeResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name'),
+                Hidden::make('role_id')
+                ->default(2)
             ]);
     }
 
@@ -33,13 +39,16 @@ class EmployeeTypeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')
+                ->searchable()
+                ->sortable()
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

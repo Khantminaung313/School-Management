@@ -14,9 +14,16 @@ class EmployeeTypeSeeder extends Seeder
     public function run(): void
     {
         EmployeeType::insert([
-            ['name' => 'principal'],
-            ['name' => 'teacher'],
-            ['name' => 'accountant'],
+            [
+                'name' => 'principal',
+                'role_id' => 2
+            ],
+            [
+                'name' => 'teacher', 'role_id' => 2
+            ],
+            [
+                'name' => 'accountant', 'role_id' => 2
+            ],
         ]);
     }
 }

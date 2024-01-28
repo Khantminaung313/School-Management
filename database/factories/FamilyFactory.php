@@ -17,7 +17,10 @@ class FamilyFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'father_name' => $this->faker->name(),
+            'mother_name' => $this->faker->name(),
+            'father_info' => $this->faker->sentence(),
+            'mother_info' => $this->faker->sentence()
         ];
     }
 }

@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+
+    protected $fillable = ['name'];
+
     use HasFactory;
 
     public function users()
@@ -17,6 +20,11 @@ class Role extends Model
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'roles_permissions');
+    }
+
+    public function employee_types()
+    {
+        return $this->hasMany(EmployeeType::class);
     }
 
 }

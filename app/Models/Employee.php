@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
+    protected $fillable = ['user_id', 'name', 'phone', 'employee_type_id', 'join_date', 'salary', 'father_name', 'gender', 'date_of_birth', 'education'];
     use HasFactory;
 
     public function user()
@@ -14,7 +15,7 @@ class Employee extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function employeeType()
+    public function employee_type()
     {
         return $this->belongsTo(EmployeeType::class);
     }

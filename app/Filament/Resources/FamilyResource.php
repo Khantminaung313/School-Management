@@ -6,9 +6,12 @@ use App\Filament\Resources\FamilyResource\Pages;
 use App\Filament\Resources\FamilyResource\RelationManagers;
 use App\Models\Family;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -25,7 +28,16 @@ class FamilyResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('father_name')
+                ->label('Father Name')
+                ->nullable(),
+                TextInput::make('mother_name')
+                ->label('Mother Name')
+                ->nullable(),
+                TextInput::make('father_info')
+                ->label('Father Information')->nullable(),
+                TextInput::make('mother_info')
+                ->label('Mother Information')->nullable(),
             ]);
     }
 
@@ -33,7 +45,27 @@ class FamilyResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('mother_name')
+                ->label('Mother Name')
+                ->searchable()
+                ->sortable(),
+                TextColumn::make('father_name')
+                ->label('Father Name')
+                ->searchable()
+                ->sortable(),
+                TextColumn::make('mother_info')
+                ->label('Mother Information'),
+                TextColumn::make('father_info')
+                ->label('Father Information'),
+                TextColumn::make('students.name')
+                ->label('Student')
+                ->listWithLineBreaks()
+                ->searchable(),
+                TextColumn::make('students.registration_number')
+                ->label('Regist_No')
+                ->listWithLineBreaks()
+                ->searchable(),
+
             ])
             ->filters([
                 //
