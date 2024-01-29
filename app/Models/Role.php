@@ -27,4 +27,5 @@ class Role extends Model
         return $this->hasMany(EmployeeType::class);
     }
 
+    
 }
