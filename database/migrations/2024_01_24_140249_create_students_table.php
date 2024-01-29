@@ -16,8 +16,12 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('family_id')->nullable();
             $table->string('name');
+<<<<<<< Updated upstream
             $table->integer('registration_number')->unique();
             $table->foreignId('class_id');
+=======
+            $table->integer('registration')->unique();
+>>>>>>> Stashed changes
             $table->string('picture', 2048)->nullable();
             $table->date('admission_date');
             $table->string('phone');
