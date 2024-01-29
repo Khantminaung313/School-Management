@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\StudentResource\Pages;
 use App\Filament\Resources\StudentResource\RelationManagers;
 use App\Models\Student;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
@@ -47,8 +48,20 @@ class StudentResource extends Resource
                     ->unique(),
                 Section::make("Student's Image")
                     ->schema([
-                        TextInput::make('user_id')
-                            ->required(),
+                        Select::make('user_id')
+                        ->label('Email')
+                        ->searchable()
+                        ->preload()
+                        ->relationship(
+                            name: 'user',
+                            titleAttribute: 'email',
+                            modifyQueryUsing: function(Builder $query) {
+                                $query
+                                ->whereHas('roles', function ($query) {
+                                    $query->where('name', 'student');
+                                })
+                                ->whereDoesntHave('student');}
+                        ),
                         FileUpload::make('picture')
                             ->label("Choose Student Image")
                             ->image()

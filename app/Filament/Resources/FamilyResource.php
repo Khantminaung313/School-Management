@@ -53,19 +53,18 @@ class FamilyResource extends Resource
                 ->label('Father Name')
                 ->searchable()
                 ->sortable(),
-                TextColumn::make('mother_info')
-                ->label('Mother Information'),
-                TextColumn::make('father_info')
-                ->label('Father Information'),
                 TextColumn::make('students.name')
                 ->label('Student')
                 ->listWithLineBreaks()
                 ->searchable(),
-                TextColumn::make('students.registration_number')
+                TextColumn::make('students.registration')
                 ->label('Regist_No')
                 ->listWithLineBreaks()
                 ->searchable(),
-
+                TextColumn::make('mother_info')
+                ->label('Mother Information')->limit(10),
+                TextColumn::make('father_info')
+                ->label('Father Information')->limit(10),
             ])
             ->filters([
                 //

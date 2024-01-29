@@ -16,13 +16,13 @@ class StudentsSeeder extends Seeder
      */
     public function run(): void
     {
-        Student::factory(5)
+        Student::factory(100)
             ->create([
                 'user_id' => function() {
                     return User::factory()->create()->id;
                 },
                 'family_id' => function() {
-                    return Family::factory()->create()->id;
+                    return Family::factory()->create([])->id;
                 }
             ]);
     }

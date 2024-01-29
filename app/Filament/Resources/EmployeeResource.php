@@ -35,6 +35,11 @@ class EmployeeResource extends Resource
                 ->relationship(
                     name: 'user',
                     titleAttribute: 'email',
+                    modifyQueryUsing:function(Builder $query) {                    
+                        return $query->whereHas('roles', function($query) {
+                            $query->where('name', 'employee');
+                        })->whereDoesntHave('employee');
+                    }
                 )
                 ->searchable()
                 ->preload(),
