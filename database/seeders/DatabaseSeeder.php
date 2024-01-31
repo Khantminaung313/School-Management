@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             RolesSeeder::class,
             EmployeeTypeSeeder::class,
-            StudentsSeeder::class
+            StudentsSeeder::class,
+            EmployeeSeeder::class,
         ]);
 
 

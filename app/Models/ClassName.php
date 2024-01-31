@@ -9,16 +9,22 @@ class ClassName extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'employee_id',
+        'fees',
+    ];
+
     public function classTeacher()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
 
 
     // class_subject_teacher
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class, 'classes_subjects');
+        return $this->belongsToMany(Subject::class, 'classes_subjects')->withPivot('employee_id');
     }
 
     public function teachers()

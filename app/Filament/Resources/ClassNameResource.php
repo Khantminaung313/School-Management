@@ -7,11 +7,19 @@ use App\Filament\Resources\ClassNameResource\RelationManagers;
 use App\Models\ClassName;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\Employee;
+use App\Models\Subject;
+use App\Filament\Resources\ClassNameResource\RelationManagers\SubjectsRelationManager;
 
 class ClassNameResource extends Resource
 {
@@ -25,7 +33,30 @@ class ClassNameResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Tabs::make("class")
+                    ->tabs([
+                        Tabs\Tab::make('Class info')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Class Name')
+                                    ->required(),
+                                Select::make('employee_id')
+                                    ->label("Choose Teacher for This class")
+                                    ->options(
+                                        Employee::where("employee_type_id",2)
+                                        ->get()
+                                        ->pluck('name', 'id')
+                                    )
+                                    ->required()
+                            ]),
+                            Tabs\Tab::make('Class Fee')
+                            ->schema([
+                                TextInput::make('fees')
+                                    ->label('Class Fee')
+                                    ->required(),
+                            ]),
+                    ])
+                
             ]);
     }
 
@@ -33,7 +64,8 @@ class ClassNameResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make("name"),
+                TextColumn::make('classTeacher.name')
             ])
             ->filters([
                 //
@@ -51,7 +83,7 @@ class ClassNameResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            SubjectsRelationManager::class
         ];
     }
 
