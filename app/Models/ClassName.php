@@ -37,4 +37,9 @@ class ClassName extends Model
     {
         return $this->belongsToMany(Homework::class, 'class_homework_subject');
     }
+
+    public function fees()
+    {
+        return $this->hasOne(Fees::class);
+    }
 }
