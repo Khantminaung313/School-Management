@@ -11,6 +11,7 @@ use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -20,6 +21,10 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Support\Carbon;
+use App\Utilities\Attendent;
 
 class EmployeeAttendResource extends Resource
 {
@@ -32,45 +37,58 @@ class EmployeeAttendResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Select::make('employee_id')
-                ->options(Employee::all()->pluck('user.email', 'id'))
-                ->searchable()
-                ->label('Employee Email')   
-                ->preload(),
-                Radio::make('status_p_a')
-                    ->label('Status(present or absent)')
-                    ->boolean()
-                    ->inline()
-                    ->inlineLabel(false),
-                DatePicker::make('date')
-                ->timezone('Asia/Yangon')
-                ->default(now())
+            ->schema([                
+                Section::make("attendent")
+                ->schema([
+                    Select::make('status')
+                    ->options([
+                        'present' => "Present",
+                        'absent' => 'Absent',
+                    ])
+                    ->required(),
+
+                    DatePicker::make('date')
+                    ->timezone('Asia/Yangon')
+                    ->default(now())
+                    ->native(false)
+                    ->required(),
+
+                    Select::make('employee_id')
+                    ->relationship(name: 'employee', titleAttribute: 'name')
+                    ->searchable(["name", "email"])
+                    ->preload()
+                    ->required(),
+                ])
             ]);
+    }
+
+    public function isTableSearchable(): bool
+    {
+        return true;
     }
 
     public static function table(Table $table): Table
     {
+
+        $AttDate = new Attendent();
+        // dd($AttDate->generateDatesToToday());
+
         return $table
             ->columns([
-                TextColumn::make('index')
-                    ->rowIndex()
-                    ->label('No'),
                 TextColumn::make('employee.name')
-                    ->searchable()
-                    ->sortable(),
-                IconColumn::make('status_p_a')
-                    ->boolean()
-                    ->label('Status'),
-                TextColumn::make('date')
-                    ->date('d-m-Y')
+                ->searchable(),
+                TextColumn::make('date'),
+                SelectColumn::make('status')
+                ->options([
+                    'present' => 'Present',
+                    'absent' => 'Absent',
+                ])
+                ->rules(['required'])
             ])
-
-
-
-
             ->filters([
-                //
+                SelectFilter::make('date')
+                ->options($AttDate->generateDatesToToday())
+                ->default(Carbon::now()->toDateString())
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

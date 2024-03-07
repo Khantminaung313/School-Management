@@ -17,7 +17,9 @@ class EmployeeAttendFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'employee_id' => 1,
+            'status' => rand(1,2),
+            'date' => fake()->dateTimeThisMonth(),
         ];
     }
 }
