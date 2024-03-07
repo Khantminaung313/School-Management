@@ -6,6 +6,7 @@ use App\Filament\Resources\FeesResource\Pages;
 use App\Filament\Resources\FeesResource\RelationManagers;
 use App\Models\Fees;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -25,7 +26,22 @@ class FeesResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Select::make('class_id')
+                ->relationship(
+                name: "class",
+                titleAttribute: 'name'
+                ),
+                Select::make('student_id')
+                ->relationship(
+                    name: 'student',
+                    titleAttribute: 'email',
+                    modifyQueryUsing: function(Builder $query) {
+                        $query
+                        ->whereHas('roles', function ($query) {
+                            $query->where('name', 'student');
+                        })
+                        ->whereDoesntHave('student');}
+                )
             ]);
     }
 

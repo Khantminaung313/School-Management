@@ -34,7 +34,6 @@ class EmployeeResource extends Resource
                 Select::make('user_id')
                 ->relationship(
                     name: 'user',
-                    titleAttribute: 'email',
                     modifyQueryUsing:function(Builder $query) {                    
                         return $query->whereHas('roles', function($query) {
                             $query->where('name', 'employee');
