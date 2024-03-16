@@ -16,4 +16,13 @@ class EmployeeAttend extends Model
     {
         return $this->belongsTo(Employee::class);
     }
+
+    public function scopeFilterByMonthYear($query, $month, $year){
+        $query->when($month ?? false, function($query, $month){
+            $query->whereMonth("date", $month);
+        }); 
+        $query->when($year ?? false, function($query, $year){
+            $query->whereYear("date", $year);
+        }); 
+    }
 }

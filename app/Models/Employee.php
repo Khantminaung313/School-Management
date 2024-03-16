@@ -25,6 +25,11 @@ class Employee extends Model
         return $this->hasOne(Salary::class);
     }
 
+    public function salaryFormat()
+    {
+        return $this->hasOne(SalaryFormat::class);
+    }
+
     //for teacher
     public function ownClasses()
     {
@@ -40,5 +45,11 @@ class Employee extends Model
     {
         return $this->belongsToMany(Subject::class, 'classes_subjects');
     }
+
+    public function attendents()
+    {
+        return $this->hasMany(EmployeeAttend::class);
+    }
+
 
 }

@@ -25,6 +25,12 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Support\Carbon;
 use App\Utilities\Attendent;
+use Filament\Tables\Actions\Action;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Filament\Tables\Actions\BulkAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use App\Utilities\DayAndMonth;
 
 class EmployeeAttendResource extends Resource
 {
@@ -69,7 +75,6 @@ class EmployeeAttendResource extends Resource
 
     public static function table(Table $table): Table
     {
-
         $AttDate = new Attendent();
         // dd($AttDate->generateDatesToToday());
 
@@ -88,7 +93,31 @@ class EmployeeAttendResource extends Resource
             ->filters([
                 SelectFilter::make('date')
                 ->options($AttDate->generateDatesToToday())
-                ->default(Carbon::now()->toDateString())
+                ->default(Carbon::now()->toDateString()),
+
+                Filter::make('created_at')
+                ->form([
+                    Select::make('month')
+                    ->options(DayAndMonth::generateMonthsPerYear()),
+                    Select::make('year')
+                    ->options([
+                        2021 => "2021",
+                        2022 => "2022",
+                        2023 => "2023",
+                        2024 => "2024",
+                    ]),
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['month'],
+                            fn (Builder $query, $month): Builder => $query->whereMonth('date', $month),
+                        )
+                        ->when(
+                            $data['year'],
+                            fn (Builder $query, $year): Builder => $query->whereYear('date', $year),
+                        );
+                })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -97,6 +126,9 @@ class EmployeeAttendResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                BulkAction::make('hey man')
+                ->requiresConfirmation()
+                ->action(fn (Collection $records) => dd($records)),
             ]);
     }
 
