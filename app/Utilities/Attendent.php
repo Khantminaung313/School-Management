@@ -21,7 +21,6 @@ class Attendent
     public function __construct() 
     {
         $todayCarbon = Carbon::now();
-        // (int)$todayCarbon->isoFormat("D")
         $this->todayDay = (int)$todayCarbon->isoFormat("D");
         $this->daysInMonth =  $todayCarbon->daysInMonth;
         $this->today = $todayCarbon;
@@ -36,7 +35,6 @@ class Attendent
 
     public function generateDatesToToday()
     {
-
         $yesterday = (int)$this->today->subDays(1)->isoFormat("D");
         // dd($this->todayDay);
         $datesArr = [];
@@ -50,11 +48,11 @@ class Attendent
                 $datesArr[$this->createDateString($i)] = $this->createDateString($i);
             }
         }
-
         return $datesArr;
     }
 
     static public function generateAllEmployeeAtt(){
+        
         $currentDate = Carbon::now()->toDateString();
 
         if(!(EmployeeAttend::where("date", $currentDate)->first())){
@@ -67,5 +65,4 @@ class Attendent
             });
         }
     }
-
 }

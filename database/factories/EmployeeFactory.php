@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Employee;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employee>
@@ -28,5 +29,14 @@ class EmployeeFactory extends Factory
             'date_of_birth' => fake()->date('Y-m-d'),
             'education' => 'B.Sc',
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Employee $employee) {
+           \App\Models\SalaryFormat::factory()->create([
+            'employee_id' => $employee->id,
+        ]);
+        });
     }
 }
